@@ -98,24 +98,81 @@ db = MySQLdb.connect(host="127.0.0.1",
                      passwd="highpass2",  
                      db="dbClass")       
 #generateRandomData(db)
-manualInsert(db)
+#manualInsert(db)
+
+cur = db.cursor()
 
 
-
-'''cur = db.cursor()
-
-#cur.execute("INSERT INTO Person VALUES('dyer2','William222','Dyer222');")
-#db.commit()
-
-cur.execute("SELECT * FROM Person")
-
-l=cur.fetchall()
-
-#print(type(l))
-
-for row in l:
-    print (row[0],row[1],row[2])
+# Exercicio 1 
+# SELECT COUNT(id), site FROM Visited group by Visited.site  
+print ("Exercicio 1")
+cur.execute("SELECT COUNT(id), site FROM Visited group by Visited.site  ")
+for row in cur.fetchall():
+    print (row[0],row[1])
 
 
+# Exercicio 2
+# SELECT name FROM Site WHERE Site.name NOT IN (SELECT site FROM Visited)
+print ("Exercicio 2")
+cur.execute("SELECT name FROM Site WHERE Site.name NOT IN (SELECT site FROM Visited) ")
+for row in cur.fetchall():
+    print (row[0])
 
-db.close()'''
+# Exercicio 3
+# SELECT reading FROM Survey 
+print ("Exercicio 3")
+cur.execute("SELECT reading FROM Survey")
+for row in cur.fetchall():
+    print (row[0])
+
+# Exercicio 4
+# SELECT COUNT(person), person FROM Survey GROUP BY person HAVING COUNT(person) > 1
+print ("Exercicio 4")
+cur.execute("SELECT COUNT(person), person FROM Survey GROUP BY person HAVING COUNT(person) > 1")
+for row in cur.fetchall():
+    print (row[0],row[1])
+
+
+# Exercicio 5
+# SELECT * FROM Person WHERE family LIKE 'dyr'
+print ("Exercicio 5")
+cur.execute("SELECT * FROM Person WHERE family LIKE 'dyr'")
+for row in cur.fetchall():
+    print (row)
+
+# Exercicio 6
+# SELECT * FROM Visited WHERE site = '{}'
+print ("Exercicio 6")
+cur.execute("SELECT * FROM Visited WHERE site = '{}'".format("DR-3"))
+for row in cur.fetchall():
+    print (row)
+    
+
+# Exercicio 7
+# SELECT COUNT(*) FROM Survey WHERE quant=NULL 
+print ("Exercicio 7")
+cur.execute("SELECT COUNT(*) FROM Survey WHERE quant=NULL" )
+for row in cur.fetchall():
+    print (row)
+
+# Exercicio 8
+# SELECT AVG(Site.lat), AVG(Site.long) FROM Visited JOIN Site WHERE  ((dated > '1930-01-01') and (dated< '1979-01-01')) 
+print ("Exercicio 8")
+cur.execute("SELECT AVG(Site.lat), AVG(Site.long) FROM Visited JOIN Site WHERE  ((dated > '1930-01-01') and (dated< '1979-01-01')) ")
+for row in cur.fetchall():
+    print (row)
+# Exercicio 9
+# SELECT COUNT(person), person FROM Survey GROUP BY person
+print ("Exercicio 9")
+cur.execute("SELECT COUNT(person), person FROM Survey GROUP BY person")
+for row in cur.fetchall():
+    print (row)
+
+# Exercicio 10
+# SELECT MAX(y.mycount), y.person FROM (SELECT COUNT(person) mycount, person FROM Survey WHERE quant = 'temp' and reading >10 and reading < 30 GROUP BY person ) y group by y.person;
+print ("Exercicio 10")
+cur.execute("SELECT MAX(y.mycount), y.person FROM (SELECT COUNT(person) mycount, person FROM Survey WHERE quant = 'temp' and reading >10 and reading < 30 GROUP BY person ) y group by y.person;")
+for row in cur.fetchall():
+    print (row)
+
+db.close()
