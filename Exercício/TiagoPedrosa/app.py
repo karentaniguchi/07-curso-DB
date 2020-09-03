@@ -63,7 +63,7 @@ def mediaLatLong():
 #Retorne a quantidade de medições realizadas por cada pessoa na tabela person
 def quantidadeMedicoesPessoa():
     con = Conexao()
-    query = "SELECT ps.personal Pessoas, count(*) Medicoes FROM Survey sv INNER JOIN Person ps ON sv.person_id = ps.id GROUP BY sv.person_id;"
+    query = "SELECT ps.personal Pessoa, count(*) Medicoes FROM Survey sv INNER JOIN Person ps ON sv.person_id = ps.id GROUP BY sv.person_id;"
     result = con.getQuery(query)
     print(result)
 

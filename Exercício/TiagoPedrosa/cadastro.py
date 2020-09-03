@@ -75,7 +75,10 @@ def insertSurvey():
 
 def main():
     opcao = {"1": insertRandom, 
-             "2": randomFloat}
+             "2": insertPerson,
+             "3": insertSite,
+             "4": insertVisited,
+             "5": insertSurvey}
     choosenOption = sys.argv[1]
     opcao[choosenOption]()
 
