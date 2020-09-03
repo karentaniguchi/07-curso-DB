@@ -19,8 +19,9 @@ class Conexao(object):
             del self.db
             self.db = None
 
-    def insertQuery(self, query):
-        self.cur.execute(query)
+    def insertQuery(self, query, params):
+        #print(params)
+        self.cur.execute(query,(params))
         self.db.commit()
 
     def getQuery(self, query,params=None):

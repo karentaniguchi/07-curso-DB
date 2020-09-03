@@ -1,4 +1,6 @@
 from db import Conexao
+import sys
+
 
 #Listar quantidade de visitas que cada site recebeu
 def visitasCidade():
@@ -72,4 +74,19 @@ def quantidadeMedicoesTemp():
     result = con.getQuery(query)
     print(result)
 
-sobrenomeDyr()
+def main():
+    opcao = {"1": visitasCidade, 
+            "2": cidadesSemVisitas,
+            "3": mtricasObservadas,
+            "4": pessoasMaisDoisLevantamentos,
+            "5": sobrenomeDyr,
+            "6": visitasPorSite,
+            "7": colunaQuantNull,
+            "8": mediaLatLong,
+            "9": quantidadeMedicoesPessoa,
+            "10": quantidadeMedicoesTemp}
+    choosenOption = sys.argv[1]
+    opcao[choosenOption]()
+
+if __name__ == "__main__":
+    main()
